@@ -27,9 +27,11 @@ import org.easybatch.core.record.FileRecord;
 
 /**
  * Filter {@link FileRecord} having a payload file name ending with a given extension.
+ * @deprecated use {@link org.easybatch.core.skipper.FileExtensionRecordSkipper} instead. This class will be removed in v5.3
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class FileExtensionFilter implements RecordFilter<FileRecord> {
 
     private String[] extensions;

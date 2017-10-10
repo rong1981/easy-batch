@@ -70,7 +70,7 @@ public class HtmlJobReportFormatterTest {
 
         jobReport.getMetrics().setStartTime(START_TIME);
         jobReport.getMetrics().setEndTime(END_TIME);
-        jobReport.getMetrics().incrementFilteredCount();
+        jobReport.getMetrics().incrementSkipCount();
         jobReport.getMetrics().incrementErrorCount();
         jobReport.getMetrics().incrementReadCount();
         jobReport.getMetrics().incrementReadCount();

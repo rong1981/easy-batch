@@ -52,11 +52,11 @@ public interface JobMonitorMBean {
     long getWriteCount();
 
     /**
-     * Get filtered records count.
+     * Get skipped records count.
      *
-     * @return filtered records count
+     * @return skipped records count
      */
-    long getFilteredCount();
+    long getSkipCount();
 
     /**
      * Get error records count.

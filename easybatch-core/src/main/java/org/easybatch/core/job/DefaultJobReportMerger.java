@@ -35,7 +35,7 @@ import java.util.List;
  * <li>The end time is the maximum of end times</li>
  * <li>The total read records is the sum of total read records</li>
  * <li>The total written records is the sum of total written records</li>
- * <li>The total filtered records is the sum of total filtered records</li>
+ * <li>The total skipped records is the sum of total skipped records</li>
  * <li>The total error records is the sum of total error records</li>
  * <li>The final status is {@link JobStatus#COMPLETED} (if all partials are completed) or {@link JobStatus#FAILED} (if one of partials has failed).</li>
  * <li>The final name is the concatenation of partial job names.</li>
@@ -70,7 +70,7 @@ public class DefaultJobReportMerger implements JobReportMerger {
             endTimes.add(jobReport.getMetrics().getEndTime());
             calculateReadRecords(finalJobReport, jobReport);
             calculateWrittenRecords(finalJobReport, jobReport);
-            calculateFilteredRecords(finalJobReport, jobReport);
+            calculateSkippedRecords(finalJobReport, jobReport);
             calculateErrorRecords(finalJobReport, jobReport);
             setStatus(finalJobReport, jobReport);
             jobNames.add(jobReport.getJobName());
@@ -109,9 +109,9 @@ public class DefaultJobReportMerger implements JobReportMerger {
         }
     }
 
-    private void calculateFilteredRecords(JobReport finalJobReport, JobReport jobReport) {
-        for (int i = 0; i < jobReport.getMetrics().getFilteredCount(); i++) {
-            finalJobReport.getMetrics().incrementFilteredCount();
+    private void calculateSkippedRecords(JobReport finalJobReport, JobReport jobReport) {
+        for (int i = 0; i < jobReport.getMetrics().getSkipCount(); i++) {
+            finalJobReport.getMetrics().incrementSkipCount();
         }
     }
 

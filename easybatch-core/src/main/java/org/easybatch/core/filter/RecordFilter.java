@@ -28,10 +28,12 @@ import org.easybatch.core.record.Record;
 
 /**
  * Interface for record filter.
+ * @deprecated use {@link org.easybatch.core.skipper.RecordSkipper} instead. This interface will be removed in v5.3
  *
  * @param <R> the type of records the filter can handle
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public interface RecordFilter<R extends Record> extends RecordProcessor<R, R> {
 
     /**

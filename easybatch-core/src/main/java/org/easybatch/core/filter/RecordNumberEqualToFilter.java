@@ -28,9 +28,11 @@ import org.easybatch.core.record.Record;
 /**
  * A {@link RecordFilter} that filters records based on their number.
  * <p/>
+ * @deprecated use {@link org.easybatch.core.skipper.RecordNumberEqualToRecordSkipper} instead. This class will be removed in v5.3
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class RecordNumberEqualToFilter implements RecordFilter<Record> {
 
     private long[] numbers;

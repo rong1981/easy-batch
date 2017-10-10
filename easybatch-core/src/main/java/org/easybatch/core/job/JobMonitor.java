@@ -75,8 +75,8 @@ class JobMonitor extends NotificationBroadcasterSupport implements JobMonitorMBe
      * {@inheritDoc}
      */
     @Override
-    public long getFilteredCount() {
-        return jobReport.getMetrics().getFilteredCount();
+    public long getSkipCount() {
+        return jobReport.getMetrics().getSkipCount();
     }
 
     /**

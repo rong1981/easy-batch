@@ -32,9 +32,11 @@ import java.util.logging.Logger;
 
 /**
  * Filter for {@link JmsPoisonRecord}s.
+ * @deprecated Use {@link JmsPoisonRecordSkipper}. This class wil be removed in v5.3
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class JmsPoisonRecordFilter implements RecordFilter<JmsRecord> {
 
     private static final Logger LOGGER = Logger.getLogger(JmsPoisonRecordFilter.class.getName());

@@ -25,10 +25,10 @@ package org.easybatch.flatfile;
 
 import org.easybatch.core.converter.DateTypeConverter;
 import org.easybatch.core.converter.TypeConverter;
-import org.easybatch.core.filter.HeaderRecordFilter;
 import org.easybatch.core.job.*;
 import org.easybatch.core.processor.RecordCollector;
 import org.easybatch.core.record.Record;
+import org.easybatch.core.skipper.HeaderRecordSkipper;
 import org.junit.Test;
 
 import java.io.File;
@@ -59,7 +59,7 @@ public class FlatFileIntegrationTest {
 
         assertThat(jobReport).isNotNull();
         assertThat(jobReport.getMetrics().getErrorCount()).isEqualTo(0);
-        assertThat(jobReport.getMetrics().getFilteredCount()).isEqualTo(0);
+        assertThat(jobReport.getMetrics().getSkipCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getWriteCount()).isEqualTo(2);
         assertThat(jobReport.getStatus()).isEqualTo(JobStatus.COMPLETED);
         assertThat(jobReport.getMetrics().getReadCount()).isEqualTo(2);
@@ -85,7 +85,7 @@ public class FlatFileIntegrationTest {
 
         assertThat(jobReport).isNotNull();
         assertThat(jobReport.getMetrics().getErrorCount()).isEqualTo(0);
-        assertThat(jobReport.getMetrics().getFilteredCount()).isEqualTo(0);
+        assertThat(jobReport.getMetrics().getSkipCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getWriteCount()).isEqualTo(2);
         assertThat(jobReport.getStatus()).isEqualTo(JobStatus.COMPLETED);
         assertThat(jobReport.getMetrics().getReadCount()).isEqualTo(2);
@@ -116,7 +116,7 @@ public class FlatFileIntegrationTest {
 
         assertThat(jobReport).isNotNull();
         assertThat(jobReport.getMetrics().getErrorCount()).isEqualTo(1);
-        assertThat(jobReport.getMetrics().getFilteredCount()).isEqualTo(0);
+        assertThat(jobReport.getMetrics().getSkipCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getWriteCount()).isEqualTo(2);
         assertThat(jobReport.getStatus()).isEqualTo(JobStatus.COMPLETED);
         assertThat(jobReport.getMetrics().getReadCount()).isEqualTo(3);
@@ -142,7 +142,7 @@ public class FlatFileIntegrationTest {
 
         assertThat(jobReport).isNotNull();
         assertThat(jobReport.getMetrics().getErrorCount()).isEqualTo(1);
-        assertThat(jobReport.getMetrics().getFilteredCount()).isEqualTo(0);
+        assertThat(jobReport.getMetrics().getSkipCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getWriteCount()).isEqualTo(2);
         assertThat(jobReport.getStatus()).isEqualTo(JobStatus.COMPLETED);
         assertThat(jobReport.getMetrics().getReadCount()).isEqualTo(3);
@@ -172,7 +172,7 @@ public class FlatFileIntegrationTest {
         RecordCollector<Complaint> recordCollector = new RecordCollector<>();
         Job job = JobBuilder.aNewJob()
                 .reader(new FlatFileRecordReader(dataSource))
-                .filter(new HeaderRecordFilter())
+                .skipper(new HeaderRecordSkipper())
                 .mapper(recordMapper)
                 .processor(recordCollector)
                 .build();
@@ -223,7 +223,7 @@ public class FlatFileIntegrationTest {
 
         assertThat(jobReport).isNotNull();
         assertThat(jobReport.getMetrics().getErrorCount()).isEqualTo(0);
-        assertThat(jobReport.getMetrics().getFilteredCount()).isEqualTo(0);
+        assertThat(jobReport.getMetrics().getSkipCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getWriteCount()).isEqualTo(2);
         assertThat(jobReport.getStatus()).isEqualTo(JobStatus.COMPLETED);
         assertThat(jobReport.getMetrics().getReadCount()).isEqualTo(2);

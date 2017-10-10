@@ -29,6 +29,7 @@ import org.easybatch.core.mapper.RecordMapper;
 import org.easybatch.core.marshaller.RecordMarshaller;
 import org.easybatch.core.processor.RecordProcessor;
 import org.easybatch.core.reader.RecordReader;
+import org.easybatch.core.skipper.RecordSkipper;
 import org.easybatch.core.validator.RecordValidator;
 import org.easybatch.core.writer.RecordWriter;
 
@@ -107,13 +108,27 @@ public final class JobBuilder {
 
     /**
      * Register a record filter.
+     * @deprecated use {@link JobBuilder#skipper(RecordSkipper)} instead.
      *
      * @param recordFilter the record filter to register
      * @return the job builder
      */
+    @Deprecated
     public JobBuilder filter(final RecordFilter recordFilter) {
         checkNotNull(recordFilter, "record filter");
         job.addRecordProcessor(recordFilter);
+        return this;
+    }
+
+    /**
+     * Register a record skipper.
+     *
+     * @param recordSkipper the record skipper to register
+     * @return the job builder
+     */
+    public JobBuilder skipper(final RecordSkipper recordSkipper) {
+        checkNotNull(recordSkipper, "record skipper");
+        job.addRecordProcessor(recordSkipper);
         return this;
     }
 

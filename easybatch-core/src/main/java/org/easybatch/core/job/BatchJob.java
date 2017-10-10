@@ -204,13 +204,13 @@ class BatchJob implements Job {
             notifyJobUpdate();
             Record preProcessedRecord = pipelineListener.beforeRecordProcessing(record);
             if (preProcessedRecord == null) {
-                LOGGER.log(Level.FINE, "{0} has been filtered", record);
-                metrics.incrementFilteredCount();
+                LOGGER.log(Level.FINE, "{0} has been skipped", record);
+                metrics.incrementSkipCount();
             } else {
                 processedRecord = recordProcessor.processRecord(preProcessedRecord);
                 if (processedRecord == null) {
-                    LOGGER.log(Level.FINE, "{0} has been filtered", record);
-                    metrics.incrementFilteredCount();
+                    LOGGER.log(Level.FINE, "{0} has been skipped", record);
+                    metrics.incrementSkipCount();
                 } else {
                     batch.addRecord(processedRecord);
                 }

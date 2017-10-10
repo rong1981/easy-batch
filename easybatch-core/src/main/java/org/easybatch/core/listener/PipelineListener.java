@@ -44,7 +44,7 @@ public interface PipelineListener {
      * Called after the record has been processed.
      *
      * @param inputRecord  The record to process.
-     * @param outputRecord The processed record. <strong>May be null if the record has been filtered</strong>
+     * @param outputRecord The processed record. <strong>May be null if the record has been skipped</strong>
      */
     void afterRecordProcessing(final Record inputRecord, final Record outputRecord);
 

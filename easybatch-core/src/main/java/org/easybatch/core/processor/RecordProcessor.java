@@ -29,7 +29,7 @@ import org.easybatch.core.record.Record;
  * A record processor performs business logic on input records and produces output records.
  * The output record may be of another type of the input record and will be piped out to the next processor if any.
  * If a record processor throws an exception during processing, the record will be reported as error.
- * If a record processor returns null, the record will be filtered and next processors in the pipeline will be skipped.
+ * If a record processor returns null, the record will be skipped and next processors in the pipeline will not be applied.
  *
  * @param <I> The input record type.
  * @param <O> The output record type.

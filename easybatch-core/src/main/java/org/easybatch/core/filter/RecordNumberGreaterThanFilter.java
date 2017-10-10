@@ -28,9 +28,11 @@ import org.easybatch.core.record.Record;
 /**
  * A {@link RecordFilter} that filters records
  * if their number is greater than a given number.
+ * @deprecated use {@link org.easybatch.core.skipper.RecordNumberGreaterThanRecordSkipper} instead. This class will be removed in v5.3
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class RecordNumberGreaterThanFilter implements RecordFilter<Record> {
 
     private long number;

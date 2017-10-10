@@ -27,9 +27,11 @@ import org.easybatch.core.record.Record;
 
 /**
  * Filter a record if its number is lower than a given number.
+ * @deprecated use {@link org.easybatch.core.skipper.RecordNumberLowerThanRecordSkipper} instead. This class will be removed in v5.3
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class RecordNumberLowerThanFilter implements RecordFilter<Record> {
 
     protected long number;

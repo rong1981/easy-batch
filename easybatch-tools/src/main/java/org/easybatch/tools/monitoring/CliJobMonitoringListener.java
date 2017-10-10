@@ -37,8 +37,8 @@ public class CliJobMonitoringListener extends JobMonitoringListener {
 
     @Override
     public void onJobReportUpdate(final JobReport jobReport) {
-        System.out.print("\r" + format("Read count = %s | Filtered count = %s | Error count = %s | Write count = %s",
-                jobReport.getMetrics().getReadCount(), jobReport.getMetrics().getFilteredCount(),
+        System.out.print("\r" + format("Read count = %s | Skip count = %s | Error count = %s | Write count = %s",
+                jobReport.getMetrics().getReadCount(), jobReport.getMetrics().getSkipCount(),
                 jobReport.getMetrics().getErrorCount(), jobReport.getMetrics().getWriteCount()));
     }
 

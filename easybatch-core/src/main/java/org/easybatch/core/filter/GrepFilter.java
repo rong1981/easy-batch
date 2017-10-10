@@ -31,9 +31,11 @@ import org.easybatch.core.util.Utils;
  * instead of filtering them.
  * <p/>
  * Should be used with {@link org.easybatch.core.record.StringRecord} type. Search is case sensitive.
+ * @deprecated use {@link org.easybatch.core.skipper.GrepRecordSkipper} instead. This class will be removed in v5.3
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class GrepFilter implements RecordFilter<StringRecord> {
 
     private String pattern;

@@ -27,9 +27,11 @@ import org.easybatch.core.record.Record;
 
 /**
  * Filters the header record (first record in the data source).
+ * @deprecated use {@link org.easybatch.core.skipper.HeaderRecordSkipper} instead. This class will be removed in v5.3
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class HeaderRecordFilter implements RecordFilter<Record> {
 
     @Override

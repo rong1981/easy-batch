@@ -31,6 +31,7 @@ import org.easybatch.core.reader.IterableRecordReader;
 import org.easybatch.core.reader.RecordReader;
 import org.easybatch.core.record.Batch;
 import org.easybatch.core.record.Record;
+import org.easybatch.core.skipper.RecordSkipper;
 import org.easybatch.core.validator.RecordValidator;
 import org.easybatch.core.writer.RecordWriter;
 import org.junit.Before;
@@ -66,7 +67,7 @@ public class BatchJobTest {
     @Mock
     private RecordReader reader;
     @Mock
-    private RecordFilter filter;
+    private RecordSkipper skipper;
     @Mock
     private RecordValidator validator;
     @Mock
@@ -155,7 +156,7 @@ public class BatchJobTest {
 
         assertThat(jobReport).isNotNull();
         assertThat(jobReport.getStatus()).isEqualTo(JobStatus.FAILED);
-        assertThat(jobReport.getMetrics().getFilteredCount()).isEqualTo(0);
+        assertThat(jobReport.getMetrics().getSkipCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getErrorCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getReadCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getWriteCount()).isEqualTo(0);
@@ -172,7 +173,7 @@ public class BatchJobTest {
 
         assertThat(jobReport).isNotNull();
         assertThat(jobReport.getStatus()).isEqualTo(JobStatus.FAILED);
-        assertThat(jobReport.getMetrics().getFilteredCount()).isEqualTo(0);
+        assertThat(jobReport.getMetrics().getSkipCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getErrorCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getReadCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getWriteCount()).isEqualTo(0);
@@ -209,7 +210,7 @@ public class BatchJobTest {
 
         JobReport jobReport = job.call();
 
-        assertThat(jobReport.getMetrics().getFilteredCount()).isEqualTo(0);
+        assertThat(jobReport.getMetrics().getSkipCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getErrorCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getReadCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getWriteCount()).isEqualTo(0);
@@ -227,7 +228,7 @@ public class BatchJobTest {
 
         JobReport jobReport = job.call();
 
-        assertThat(jobReport.getMetrics().getFilteredCount()).isEqualTo(0);
+        assertThat(jobReport.getMetrics().getSkipCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getErrorCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getReadCount()).isEqualTo(2);
         assertThat(jobReport.getMetrics().getWriteCount()).isEqualTo(0);
@@ -243,7 +244,7 @@ public class BatchJobTest {
         when(pipelineListener.beforeRecordProcessing(record2)).thenReturn(record2);
 
         JobReport jobReport = job.call();
-        assertThat(jobReport.getMetrics().getFilteredCount()).isEqualTo(0);
+        assertThat(jobReport.getMetrics().getSkipCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getErrorCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getReadCount()).isEqualTo(2);
         assertThat(jobReport.getMetrics().getWriteCount()).isEqualTo(2);
@@ -264,7 +265,7 @@ public class BatchJobTest {
 
         JobReport jobReport = job.call();
 
-        assertThat(jobReport.getMetrics().getFilteredCount()).isEqualTo(0);
+        assertThat(jobReport.getMetrics().getSkipCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getErrorCount()).isEqualTo(2);
         assertThat(jobReport.getMetrics().getReadCount()).isEqualTo(2);
         assertThat(jobReport.getMetrics().getWriteCount()).isEqualTo(0);
@@ -274,13 +275,13 @@ public class BatchJobTest {
     }
 
     @Test
-    public void whenARecordProcessorReturnsNull_thenTheRecordShouldBeFiltered() throws Exception {
+    public void whenARecordProcessorReturnsNull_thenTheRecordShouldBeSkipped() throws Exception {
         when(reader.readRecord()).thenReturn(record1).thenReturn(null);
         when(firstProcessor.processRecord(record1)).thenReturn(null);
 
         JobReport jobReport = job.call();
 
-        assertThat(jobReport.getMetrics().getFilteredCount()).isEqualTo(1);
+        assertThat(jobReport.getMetrics().getSkipCount()).isEqualTo(1);
         assertThat(jobReport.getMetrics().getErrorCount()).isEqualTo(0);
         assertThat(jobReport.getMetrics().getReadCount()).isEqualTo(1);
         assertThat(jobReport.getMetrics().getWriteCount()).isEqualTo(0);

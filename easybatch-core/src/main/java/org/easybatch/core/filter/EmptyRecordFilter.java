@@ -27,9 +27,11 @@ import org.easybatch.core.record.StringRecord;
 
 /**
  * Filters empty {@link org.easybatch.core.record.StringRecord}.
+ * @deprecated use {@link org.easybatch.core.skipper.EmptyRecordSkipper} instead. This class will be removed in v5.3
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class EmptyRecordFilter implements RecordFilter<StringRecord> {
 
     public StringRecord processRecord(final StringRecord record) {

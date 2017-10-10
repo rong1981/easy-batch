@@ -27,9 +27,11 @@ import org.easybatch.core.record.StringRecord;
 
 /**
  * Filter string records ending with one of the given suffixes.
+ * @deprecated use {@link org.easybatch.core.skipper.EndWithStringRecordSkipper} instead. This class will be removed in v5.3
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class EndWithStringRecordFilter implements RecordFilter<StringRecord> {
 
     private String[] suffixes;

@@ -86,7 +86,7 @@ public class JmsIntegrationTest {
         RecordCollector recordCollector = new RecordCollector();
         Job job = aNewJob()
                 .reader(new JmsQueueRecordReader(queueConnectionFactory, queue))
-                .filter(new JmsPoisonRecordFilter())
+                .skipper(new JmsPoisonRecordSkipper())
                 .processor(recordCollector)
                 .build();
 
@@ -94,7 +94,7 @@ public class JmsIntegrationTest {
 
         assertThat(jobReport).isNotNull();
         assertThat(jobReport.getMetrics().getReadCount()).isEqualTo(2);
-        assertThat(jobReport.getMetrics().getFilteredCount()).isEqualTo(1);
+        assertThat(jobReport.getMetrics().getSkipCount()).isEqualTo(1);
         assertThat(jobReport.getMetrics().getWriteCount()).isEqualTo(1);
 
         List<JmsRecord> records = recordCollector.getRecords();

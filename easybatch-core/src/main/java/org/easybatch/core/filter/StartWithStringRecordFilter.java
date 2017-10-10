@@ -27,9 +27,11 @@ import org.easybatch.core.record.StringRecord;
 
 /**
  * A {@link RecordFilter} that filters string records starting with one of the given prefixes.
+ * @deprecated use {@link org.easybatch.core.skipper.StartWithStringRecordSkipper} instead. This class will be removed in v5.3
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class StartWithStringRecordFilter implements RecordFilter<StringRecord> {
 
     private String[] prefixes;

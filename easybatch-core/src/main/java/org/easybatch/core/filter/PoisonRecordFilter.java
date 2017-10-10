@@ -30,9 +30,11 @@ import org.easybatch.core.record.Record;
  * {@link PoisonRecord}s are used as End-Of-Stream signals, usually they have no added value and should be filtered.
  * <p/>
  * This filter is used to filter such records.
+ * @deprecated use {@link org.easybatch.core.skipper.PoisonRecordSkipper} instead. This class will be removed in v5.3
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class PoisonRecordFilter implements RecordFilter<Record> {
 
     @Override
