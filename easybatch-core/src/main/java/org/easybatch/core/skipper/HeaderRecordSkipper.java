@@ -32,6 +32,15 @@ import org.easybatch.core.record.Record;
  */
 public class HeaderRecordSkipper implements RecordSkipper<Record> {
 
+    /**
+     * Static factory method to create a {@link HeaderRecordSkipper}.
+     *
+     * @return a new {@link HeaderRecordSkipper} instance
+     */
+    public static HeaderRecordSkipper headerRecord() {
+        return new HeaderRecordSkipper();
+    }
+
     @Override
     public Record processRecord(final Record record) {
         if (record.getHeader().getNumber() == 1) {

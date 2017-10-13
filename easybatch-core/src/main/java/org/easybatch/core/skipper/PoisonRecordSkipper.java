@@ -35,6 +35,15 @@ import org.easybatch.core.record.Record;
  */
 public class PoisonRecordSkipper implements RecordSkipper<Record> {
 
+    /**
+     * Create a new {@link PoisonRecordSkipper}.
+     *
+     * @return a new {@link PoisonRecordSkipper}
+     */
+    public static PoisonRecordSkipper poisonRecords() {
+        return new PoisonRecordSkipper();
+    }
+
     @Override
     public Record processRecord(final Record record) {
         if (record instanceof PoisonRecord) {

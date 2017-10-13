@@ -107,6 +107,17 @@ public final class JobBuilder {
     }
 
     /**
+     * Register a record reader.
+     * This is an alias for {@link JobBuilder#reader(org.easybatch.core.reader.RecordReader)}
+     *
+     * @param recordReader the record reader to register
+     * @return the job builder
+     */
+    public JobBuilder read(final RecordReader recordReader) {
+        return reader(recordReader);
+    }
+
+    /**
      * Register a record filter.
      * @deprecated use {@link JobBuilder#skipper(RecordSkipper)} instead.
      *
@@ -133,6 +144,17 @@ public final class JobBuilder {
     }
 
     /**
+     * Register a record skipper.
+     * This is an alias for {@link JobBuilder#skipper(org.easybatch.core.skipper.RecordSkipper)}
+     *
+     * @param recordSkipper the record skipper to register
+     * @return the job builder
+     */
+    public JobBuilder skip(final RecordSkipper recordSkipper) {
+        return skipper(recordSkipper);
+    }
+
+    /**
      * Register a record mapper.
      *
      * @param recordMapper the record mapper to register
@@ -142,6 +164,17 @@ public final class JobBuilder {
         checkNotNull(recordMapper, "record mapper");
         job.addRecordProcessor(recordMapper);
         return this;
+    }
+
+    /**
+     * Register a record mapper.
+     * This is an alias for {@link JobBuilder#mapper(org.easybatch.core.mapper.RecordMapper)}
+     *
+     * @param recordMapper the record mapper to register
+     * @return the job builder
+     */
+    public JobBuilder map(final RecordMapper recordMapper) {
+        return mapper(recordMapper);
     }
 
     /**
@@ -157,6 +190,17 @@ public final class JobBuilder {
     }
 
     /**
+     * Register a record validator.
+     * This is an alias for {@link JobBuilder#validator(org.easybatch.core.validator.RecordValidator)}
+     *
+     * @param recordValidator the record validator to register
+     * @return the job builder
+     */
+    public JobBuilder validate(final RecordValidator recordValidator) {
+        return validator(recordValidator);
+    }
+
+    /**
      * Register a record processor.
      *
      * @param recordProcessor the record processor to register
@@ -166,6 +210,17 @@ public final class JobBuilder {
         checkNotNull(recordProcessor, "record processor");
         job.addRecordProcessor(recordProcessor);
         return this;
+    }
+
+    /**
+     * Register a record processor.
+     * This is an alias for {@link JobBuilder#processor(org.easybatch.core.processor.RecordProcessor)}
+     *
+     * @param recordProcessor the record processor to register
+     * @return the job builder
+     */
+    public JobBuilder process(final RecordProcessor recordProcessor) {
+        return processor(recordProcessor);
     }
 
     /**
@@ -181,6 +236,17 @@ public final class JobBuilder {
     }
 
     /**
+     * Register a record marshaller.
+     * This is an alias to {@link JobBuilder#marshaller(org.easybatch.core.marshaller.RecordMarshaller)}
+     *
+     * @param recordMarshaller the record marshaller to register
+     * @return the job builder
+     */
+    public JobBuilder marshal(final RecordMarshaller recordMarshaller) {
+        return marshaller(recordMarshaller);
+    }
+
+    /**
      * Register a record writer.
      *
      * @param recordWriter the record writer to register
@@ -190,6 +256,17 @@ public final class JobBuilder {
         checkNotNull(recordWriter, "record writer");
         job.setRecordWriter(recordWriter);
         return this;
+    }
+
+    /**
+     * Register a record writer.
+     * This is an alias for {@link JobBuilder#writer(org.easybatch.core.writer.RecordWriter)}
+     *
+     * @param recordWriter the record writer to register
+     * @return the job builder
+     */
+    public JobBuilder write(final RecordWriter recordWriter) {
+        return writer(recordWriter);
     }
 
     /**
@@ -245,6 +322,17 @@ public final class JobBuilder {
     }
 
     /**
+     * Register a job listener.
+     * See {@link JobListener} for available callback methods.
+     *
+     * @param jobListener The job listener to add.
+     * @return the job builder
+     */
+    public JobBuilder apply(final JobListener jobListener) {
+        return jobListener(jobListener);
+    }
+
+    /**
      * Register a batch listener.
      * See {@link BatchListener} for available callback methods.
      *
@@ -255,6 +343,10 @@ public final class JobBuilder {
         checkNotNull(batchListener, "batch listener");
         job.addBatchListener(batchListener);
         return this;
+    }
+
+    public JobBuilder apply(final BatchListener batchListener) {
+        return batchListener(batchListener);
     }
 
     /**
@@ -270,6 +362,10 @@ public final class JobBuilder {
         return this;
     }
 
+    public JobBuilder apply(final RecordReaderListener recordReaderListener) {
+        return readerListener(recordReaderListener);
+    }
+
     /**
      * Register a pipeline listener.
      * See {@link PipelineListener} for available callback methods.
@@ -283,6 +379,10 @@ public final class JobBuilder {
         return this;
     }
 
+    public JobBuilder apply(final PipelineListener pipelineListener) {
+        return pipelineListener(pipelineListener);
+    }
+
     /**
      * Register a record writer listener.
      * See {@link RecordWriterListener} for available callback methods.
@@ -294,6 +394,10 @@ public final class JobBuilder {
         checkNotNull(recordWriterListener, "record writer listener");
         job.addRecordWriterListener(recordWriterListener);
         return this;
+    }
+
+    public JobBuilder apply(final RecordWriterListener recordWriterListener) {
+        return writerListener(recordWriterListener);
     }
 
     /**

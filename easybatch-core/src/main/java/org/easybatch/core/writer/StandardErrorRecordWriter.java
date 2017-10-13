@@ -34,6 +34,10 @@ import java.io.OutputStreamWriter;
  */
 public class StandardErrorRecordWriter extends OutputStreamRecordWriter {
 
+    public static StandardErrorRecordWriter toStandardError() {
+        return new StandardErrorRecordWriter();
+    }
+
     /**
      * Create a new {@link StandardErrorRecordWriter}.
      */

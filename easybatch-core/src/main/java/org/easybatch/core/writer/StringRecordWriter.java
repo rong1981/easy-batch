@@ -40,6 +40,10 @@ public class StringRecordWriter implements RecordWriter {
 
     private StringWriter stringWriter;
 
+    public static StringRecordWriter to(final StringWriter stringWriter) {
+        return new StringRecordWriter(stringWriter);
+    }
+
     /**
      * Create a new {@link StringWriter}.
      *

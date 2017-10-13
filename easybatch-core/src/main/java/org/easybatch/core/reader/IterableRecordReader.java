@@ -43,6 +43,10 @@ public class IterableRecordReader implements RecordReader {
     private long currentRecordNumber;
     private Iterator iterator;
 
+    public static IterableRecordReader from(Iterable dataSource) {
+        return new IterableRecordReader(dataSource);
+    }
+
     /**
      * Create a new {@link IterableRecordReader}.
      *

@@ -57,6 +57,16 @@ public class StringRecordReader implements RecordReader {
      * Create a new {@link StringRecordReader}.
      *
      * @param dataSource The String data source
+     * @return a new {@link StringRecordReader} instance
+     */
+    public static StringRecordReader from(String dataSource) {
+        return new StringRecordReader(dataSource);
+    }
+
+    /**
+     * Create a new {@link StringRecordReader}.
+     *
+     * @param dataSource The String data source
      */
     public StringRecordReader(final String dataSource) {
         this.dataSource = dataSource;

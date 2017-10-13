@@ -37,6 +37,16 @@ public class StartWithStringRecordSkipper implements RecordSkipper<StringRecord>
     /**
      * Create a new {@link StartWithStringRecordSkipper}.
      *
+     * @param prefixes that cause the record to be skipped.
+     * @return a new {@link StartWithStringRecordSkipper}
+     */
+    public static StartWithStringRecordSkipper recordsStartingWith(final String... prefixes) {
+        return new StartWithStringRecordSkipper(prefixes);
+    }
+
+    /**
+     * Create a new {@link StartWithStringRecordSkipper}.
+     *
      * @param prefixes prefixes that cause the record to be skipped.
      */
     public StartWithStringRecordSkipper(final String... prefixes) {

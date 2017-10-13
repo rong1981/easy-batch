@@ -34,6 +34,10 @@ import java.io.OutputStreamWriter;
  */
 public class StandardOutputRecordWriter extends OutputStreamRecordWriter {
 
+    public static StandardOutputRecordWriter toStandardOutput() {
+        return new StandardOutputRecordWriter();
+    }
+
     /**
      * Create a new {@link StandardOutputRecordWriter}.
      */

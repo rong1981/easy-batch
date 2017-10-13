@@ -32,6 +32,10 @@ import org.easybatch.core.record.StringRecord;
  */
 public class EmptyRecordSkipper implements RecordSkipper<StringRecord> {
 
+    public static EmptyRecordSkipper emptyRecords() {
+        return new EmptyRecordSkipper();
+    }
+
     public StringRecord processRecord(final StringRecord record) {
         String payload = record.getPayload();
         if (payload.isEmpty()) {
