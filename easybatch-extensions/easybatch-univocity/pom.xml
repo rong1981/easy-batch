@@ -3,7 +3,7 @@
     <parent>
         <artifactId>easybatch-extensions</artifactId>
         <groupId>org.easybatch</groupId>
-        <version>5.1.1-SNAPSHOT</version>
+        <version>5.2.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,6 +14,10 @@
     <name>easybatch-univocity</name>
     <description>Extension to support uniVocity</description>
     <url>http://www.univocity.com</url>
+
+    <properties>
+        <univocity-parsers.version>2.5.8</univocity-parsers.version>
+    </properties>
 
     <developers>
         <developer>
@@ -28,20 +32,20 @@
     </developers>
 
     <scm>
-        <url>git@github.com:easybatch/easybatch-framework.git</url>
-        <connection>scm:git:git@github.com:easybatch/easybatch-framework.git</connection>
-        <developerConnection>scm:git:git@github.com:easybatch/easybatch-framework.git</developerConnection>
+        <url>git@github.com:j-easy/easy-batch.git</url>
+        <connection>scm:git:git@github.com:j-easy/easy-batch.git</connection>
+        <developerConnection>scm:git:git@github.com:j-easy/easy-batch.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/easybatch/easybatch-framework/issues</url>
+        <url>https://github.com/j-easy/easy-batch/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>Travis CI</system>
-        <url>https://travis-ci.org/EasyBatch/easybatch-framework</url>
+        <url>https://travis-ci.org/j-easy/easy-batch</url>
     </ciManagement>
 
     <licenses>
@@ -61,7 +65,7 @@
         <dependency>
             <groupId>com.univocity</groupId>
             <artifactId>univocity-parsers</artifactId>
-            <version>2.2.3</version>
+            <version>${univocity-parsers.version}</version>
         </dependency>
 
         <dependency>
@@ -80,4 +84,24 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <header>../../licence-header-template.txt</header>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

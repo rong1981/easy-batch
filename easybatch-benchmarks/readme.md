@@ -67,7 +67,7 @@ public class Customer {
 # Checkout source code
 
 ```
-$>git clone https://github.com/EasyBatch/easybatch-benchmarks.git
+$>git clone https://github.com/j-easy/easy-batch.git
 ```
 
 # Run the CSV benchmark
@@ -76,7 +76,10 @@ $>git clone https://github.com/EasyBatch/easybatch-benchmarks.git
 $>cd easybatch-benchmarks
 $>mvn package
 $>cd target
-$>java -Dorg.easybatch.bench.count=10000 -cp "easybatch-benchmarks-4.0.0.jar:dependency/*" org.easybatch.bench.CsvBenchmark
+$>java \
+    -Dorg.easybatch.bench.count=10000 \
+    -cp "easybatch-benchmarks-5.2.0-SNAPSHOT.jar:dependency/*" \
+    org.easybatch.bench.CsvBenchmark
 ```
 
 # Run the XML benchmark
@@ -85,16 +88,32 @@ $>java -Dorg.easybatch.bench.count=10000 -cp "easybatch-benchmarks-4.0.0.jar:dep
 $>cd easybatch-benchmarks
 $>mvn package
 $>cd target
-$>java -Dorg.easybatch.bench.count=10000 -cp "easybatch-benchmarks-4.0.0.jar:dependency/*" org.easybatch.bench.XmlBenchmark
+$>java \
+    -Dorg.easybatch.bench.count=10000 \
+    -cp "easybatch-benchmarks-5.2.0-SNAPSHOT.jar:dependency/*" \
+    org.easybatch.bench.XmlBenchmark
 ```
 
 # Notes
 
-If you are using MS Windows, please use the `;` classpath separator in the previous commands as follows:
+* If you are using MS Windows, please use the `;` classpath separator in the previous commands as follows:
 
-`-cp "easybatch-benchmarks-4.0.0.jar;dependency/*"`
+```
+$>java ^
+    -Dorg.easybatch.bench.count=10000 ^
+    -cp "easybatch-benchmarks-5.2.0-SNAPSHOT.jar;dependency/*" ^
+    org.easybatch.bench.CsvBenchmark
 
-Use the JVM property `-Dorg.easybatch.bench.count` to specify the number of records to generate.
+$>java ^
+    -Dorg.easybatch.bench.count=10000 ^
+    -cp "easybatch-benchmarks-5.2.0-SNAPSHOT.jar;dependency/*" ^
+    org.easybatch.bench.XmlBenchmark
+```
 
-By default, the directory `java.io.tmpdir` is used to generate the input files (which will be deleted at the end of benchmark execution).
- You can change this default directory by setting the JVM property `-Djava.io.tmpdir=path_to_tmp_directory`.
+* Use the JVM property `-Dorg.easybatch.bench.count` to specify the number of records to generate.
+
+* By default, the directory `java.io.tmpdir` is used to generate the input files (which will be deleted at the end of benchmark execution).
+You can change this default directory by setting the JVM property:
+```
+-Djava.io.tmpdir=path/to/tmp/directory
+```

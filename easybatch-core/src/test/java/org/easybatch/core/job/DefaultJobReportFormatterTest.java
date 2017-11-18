@@ -81,10 +81,10 @@ public class DefaultJobReportFormatterTest {
                 "Metrics:" + LINE_SEPARATOR +
                 "\tStart time = 2015-01-01 01:00:00" + LINE_SEPARATOR +
                 "\tEnd time = 2015-01-01 01:00:10" + LINE_SEPARATOR +
-                "\tDuration = 0hr 0min 10sec 0ms" + LINE_SEPARATOR +
+                "\tDuration = 0d 0hr 0min 10sec 0ms" + LINE_SEPARATOR +
                 "\tRead count = 0" + LINE_SEPARATOR +
                 "\tWrite count = 0" + LINE_SEPARATOR +
-                "\tFiltered count = 0" + LINE_SEPARATOR +
+                "\tFilter count = 0" + LINE_SEPARATOR +
                 "\tError count = 0" + LINE_SEPARATOR +
                 "\tnbFoos = 1" + LINE_SEPARATOR +
                 "System properties:" + LINE_SEPARATOR +

@@ -21,40 +21,62 @@
  *   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *   THE SOFTWARE.
  */
-package org.easybatch.xml;
+package org.easybatch.core.filter;
 
-import org.easybatch.core.record.Header;
+import org.easybatch.core.job.JobBuilder;
+import org.easybatch.core.reader.IterableRecordReader;
 import org.easybatch.core.record.Record;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class XmlRecordMarshallerTest {
+public class FilteredRecordsSavingRecordFilterTest {
 
     @Mock
-    private Record<Person> record;
+    private Record record;
     @Mock
-    private Header header;
+    private RecordFilter delegate;
+
+    private FilteredRecordsSavingRecordFilter recordFilter;
 
     @Test
-    public void testRecordMarshalling() throws Exception {
+    public void whenFilteringRecords_thenDelegateFilterShouldBeCalled() throws Exception {
         // given
-        Person person = new Person(1, "foo", "bar", null, false);
-        when(record.getHeader()).thenReturn(header);
-        when(record.getPayload()).thenReturn(person);
-        XmlRecordMarshaller<Person> xmlRecordMarshaller = new XmlRecordMarshaller<>(Person.class);
-        String expected = "<person><firstName>foo</firstName><id>1</id><lastName>bar</lastName><married>false</married></person>";
+        recordFilter = new FilteredRecordsSavingRecordFilter(delegate);
 
         // when
-        XmlRecord actual = xmlRecordMarshaller.processRecord(record);
+        recordFilter.processRecord(record);
 
         // then
-        assertThat(actual.getHeader()).isEqualTo(header);
-        assertThat(actual.getPayload()).isXmlEqualTo(expected);
+        verify(delegate).processRecord(record);
     }
+
+    @Test
+    public void filteredRecordsShouldBeSaved() {
+        // given
+        List<Integer> dataSource = Arrays.asList(1, 2, 3, 4);
+        recordFilter = new FilteredRecordsSavingRecordFilter(new RecordNumberEqualToFilter(2, 4));
+
+        // when
+        JobBuilder.aNewJob()
+                .reader(new IterableRecordReader(dataSource))
+                .filter(recordFilter)
+                .build()
+                .call();
+
+        // then
+        List<Record> filteredRecords = recordFilter.getFilteredRecords();
+        assertThat(filteredRecords).hasSize(2);
+        assertThat(filteredRecords.get(0).getHeader().getNumber()).isEqualTo(2);
+        assertThat(filteredRecords.get(1).getHeader().getNumber()).isEqualTo(4);
+    }
+
 }

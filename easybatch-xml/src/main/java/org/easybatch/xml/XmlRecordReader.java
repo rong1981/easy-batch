@@ -155,7 +155,7 @@ public class XmlRecordReader implements RecordReader {
         while (iterator.hasNext()) {
             Attribute attribute = (Attribute) iterator.next();
             stringBuilder.append(" ")
-                    .append(attribute.getName())
+                    .append(attribute.getName().getLocalPart())
                     .append("='")
                     .append(escape(attribute.getValue()))
                     .append("'");
@@ -166,7 +166,10 @@ public class XmlRecordReader implements RecordReader {
     private String escape(String xmlToEscape) {
         return xmlToEscape.replaceAll("&", "&amp;")
                 .replaceAll("'", "&apos;")
-                .replaceAll("\"", "&quot;");
+                .replaceAll("\"", "&quot;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                ;
     }
 
 }

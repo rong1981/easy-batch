@@ -96,6 +96,7 @@ public class UnivocityRecordMapperTest {
     public void testUnivocityCsvCarriageReturn() throws Exception {
         CsvParserSettings csvParserSettings = new CsvParserSettings();
         csvParserSettings.getFormat().setQuote('\'');
+        csvParserSettings.setNormalizeLineEndingsWithinQuotes(false);
         csvRecordMapper = new UnivocityCsvRecordMapper<>(TestBean.class, csvParserSettings);
         StringRecord fooRecord = new StringRecord(header, "'foo" + LINE_SEPARATOR + "','bar" + LINE_SEPARATOR + "'");
         Record<TestBean> actual = csvRecordMapper.processRecord(fooRecord);

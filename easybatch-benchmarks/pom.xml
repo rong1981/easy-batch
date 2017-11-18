@@ -5,18 +5,19 @@
 
     <groupId>org.easybatch</groupId>
     <artifactId>easybatch-benchmarks</artifactId>
-    <version>4.0.0</version>
+    <version>5.2.0</version>
     <packaging>jar</packaging>
 
     <name>easybatch-benchmarks</name>
     <description>Easy Batch benchmarks module</description>
-    <url>http://www.easybatch.org</url>
+    <url>https://github.com/j-easy/easy-batch</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jmh.version>1.11.3</jmh.version>
-        <random-beans.version>2.0.0</random-beans.version>
-        <maven-dependency-plugin.version>2.9</maven-dependency-plugin.version>
+        <jmh.version>1.19</jmh.version>
+        <random-beans.version>3.7.0</random-beans.version>
+        <maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
     </properties>
 
     <developers>
@@ -94,7 +95,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <verbose>true</verbose>
                     <source>1.7</source>

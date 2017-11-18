@@ -37,6 +37,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.easybatch.core.util.Utils.LINE_SEPARATOR;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -84,7 +85,7 @@ public class UnivocityRecordMarshallerTest {
 
     @Test
     public void processRecordIntoCsv() throws Exception {
-        String expectedPayload = "\"foo\",\"bar\",\"30\",\"true\"\n";
+        String expectedPayload = "\"foo\",\"bar\",\"30\",\"true\"" + LINE_SEPARATOR;
         StringRecord actual = csvRecordMarshaller.processRecord(record);
 
         assertThat(actual.getHeader()).isEqualTo(header);
@@ -93,7 +94,7 @@ public class UnivocityRecordMarshallerTest {
 
     @Test
     public void processRecordIntoTsv() throws Exception {
-        String expectedPayload = "foo\tbar\t30\ttrue\n";
+        String expectedPayload = "foo\tbar\t30\ttrue" + LINE_SEPARATOR;
         StringRecord actual = tsvRecordMarshaller.processRecord(record);
 
         assertThat(actual.getHeader()).isEqualTo(header);
@@ -102,7 +103,7 @@ public class UnivocityRecordMarshallerTest {
 
     @Test
     public void processRecordIntoFixedWidth() throws Exception {
-        String expectedPayload = "foo bar 30 true\n";
+        String expectedPayload = "foo bar 30 true" + LINE_SEPARATOR;
         StringRecord actual = fixedWidthRecordMarshaller.processRecord(record);
 
         assertThat(actual.getHeader()).isEqualTo(header);

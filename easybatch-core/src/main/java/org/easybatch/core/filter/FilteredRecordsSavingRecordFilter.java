@@ -21,40 +21,51 @@
  *   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *   THE SOFTWARE.
  */
-package org.easybatch.xml;
+package org.easybatch.core.filter;
 
-import org.easybatch.core.record.Header;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.easybatch.core.record.Record;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+/**
+ * A {@link RecordFilter} that saves filtered records for later use.
+ * This filter delegates record filtering to another filter.
+ *
+ * @author Somma Daniele
+ */
+public class FilteredRecordsSavingRecordFilter implements RecordFilter {
 
-@RunWith(MockitoJUnitRunner.class)
-public class XmlRecordMarshallerTest {
+    private List<Record> filteredRecords = new ArrayList<>();
+    private RecordFilter delegate;
 
-    @Mock
-    private Record<Person> record;
-    @Mock
-    private Header header;
-
-    @Test
-    public void testRecordMarshalling() throws Exception {
-        // given
-        Person person = new Person(1, "foo", "bar", null, false);
-        when(record.getHeader()).thenReturn(header);
-        when(record.getPayload()).thenReturn(person);
-        XmlRecordMarshaller<Person> xmlRecordMarshaller = new XmlRecordMarshaller<>(Person.class);
-        String expected = "<person><firstName>foo</firstName><id>1</id><lastName>bar</lastName><married>false</married></person>";
-
-        // when
-        XmlRecord actual = xmlRecordMarshaller.processRecord(record);
-
-        // then
-        assertThat(actual.getHeader()).isEqualTo(header);
-        assertThat(actual.getPayload()).isXmlEqualTo(expected);
+    /**
+     * Create a new {@link FilteredRecordsSavingRecordFilter}
+     *
+     * @param delegate
+     *          the record filter to be used
+     */
+    public FilteredRecordsSavingRecordFilter(final RecordFilter delegate) {
+        this.delegate = delegate;
     }
+
+    @Override
+    public Record processRecord(Record record) {
+        Record recordFiltered = delegate.processRecord(record);
+        if (null == recordFiltered) {
+            filteredRecords.add(record);
+        }
+
+        return recordFiltered;
+    }
+
+    /**
+     * Get filtered records.
+     *
+     * @return filtered records
+     */
+    public List<Record> getFilteredRecords() {
+        return filteredRecords;
+    }
+
 }

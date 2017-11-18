@@ -60,8 +60,8 @@ public class MultiXmlFileRecordReaderTest {
         List<Record> records = recordCollector.getRecords();
 
         // then
-        // there are 4 records in xml files starting with "web" inside "src/test/resources"
-        assertThat(records).hasSize(5);
+        // there are 6 records in xml files starting with "web" inside "src/test/resources"
+        assertThat(records).hasSize(6);
 
     }
 
