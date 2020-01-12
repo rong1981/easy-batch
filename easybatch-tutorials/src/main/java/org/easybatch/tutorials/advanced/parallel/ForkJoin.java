@@ -51,7 +51,6 @@ import static org.easybatch.core.job.JobBuilder.aNewJob;
 public class ForkJoin {
 
     private static final int THREAD_POOL_SIZE = 4;
-    private static final int NB_WORKERS = 2;
 
     public static void main(String[] args) throws Exception {
 
@@ -91,14 +90,13 @@ public class ForkJoin {
                 .reader(new JdbcRecordReader(dataSource, "select * from tweet"))
                 .mapper(new JdbcRecordMapper<>(Tweet.class, "id", "user", "message"))
                 .writer(new RoundRobinBlockingQueueRecordWriter(workQueues))
-                .jobListener(new PoisonRecordBroadcaster(workQueues))
                 .build();
     }
 
     private static Job buildWorkerJob(String jobName, BlockingQueue<Record> workQueue, BlockingQueue<Record> joinQueue) {
         return aNewJob()
                 .named(jobName)
-                .reader(new BlockingQueueRecordReader(workQueue))
+                .reader(new BlockingQueueRecordReader(workQueue, 1000))
                 .processor(new TweetProcessor(jobName))
                 .writer(new BlockingQueueRecordWriter(joinQueue))
                 .build();
@@ -107,8 +105,7 @@ public class ForkJoin {
     private static Job buildJoinJob(String jobName, BlockingQueue<Record> joinQueue) {
         return aNewJob()
                 .named(jobName)
-                .reader(new BlockingQueueRecordReader(joinQueue, NB_WORKERS))
-                .filter(new PoisonRecordFilter())
+                .reader(new BlockingQueueRecordReader(joinQueue, 1000))
                 .writer(new StandardOutputRecordWriter())
                 .build();
     }

@@ -23,10 +23,10 @@
  */
 package org.easybatch.core.reader;
 
-import org.easybatch.core.record.PoisonRecord;
 import org.easybatch.core.record.Record;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A {@link RecordReader} that reads record from a {@link BlockingQueue}.
@@ -35,9 +35,10 @@ import java.util.concurrent.BlockingQueue;
  */
 public class BlockingQueueRecordReader implements RecordReader {
 
-    private int poisonRecords;
-    private int totalPoisonRecords;
+    public static final long DEFAULT_TIMEOUT = 60000;
+
     private BlockingQueue<Record> queue;
+    private long timeout;
 
     /**
      * Create a new {@link BlockingQueueRecordReader}.
@@ -45,35 +46,22 @@ public class BlockingQueueRecordReader implements RecordReader {
      * @param queue the queue to read records from
      */
     public BlockingQueueRecordReader(final BlockingQueue<Record> queue) {
-        this(queue, 1);
+        this(queue, DEFAULT_TIMEOUT);
     }
 
-    /**
-     * Create a new {@link BlockingQueueRecordReader}.
-     *
-     * @param queue              the queue to read records from
-     * @param totalPoisonRecords number of poison records to receive to stop reading from the queue
-     */
-    public BlockingQueueRecordReader(final BlockingQueue<Record> queue, int totalPoisonRecords) {
+    public BlockingQueueRecordReader(final BlockingQueue<Record> queue, final long timeout) {
         this.queue = queue;
-        this.totalPoisonRecords = totalPoisonRecords;
+        this.timeout = timeout;
     }
 
     @Override
     public void open() {
-        poisonRecords = 0;
+
     }
 
     @Override
     public Record readRecord() throws Exception {
-        if (poisonRecords == totalPoisonRecords) {
-            return null;
-        }
-        Record record = queue.take();
-        if (record instanceof PoisonRecord) {
-            poisonRecords++;
-        }
-        return record;
+        return queue.poll(timeout, TimeUnit.MILLISECONDS); // returns null after timeout (See javadoc)
     }
 
     @Override
