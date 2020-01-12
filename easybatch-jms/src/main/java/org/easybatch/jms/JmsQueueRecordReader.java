@@ -38,7 +38,7 @@ import static org.easybatch.core.util.Utils.checkNotNull;
  * <p/>
  * This reader produces {@link JmsRecord} instances of type {@link javax.jms.Message}.
  * <p/>
- * It will stop reading records when a {@link JmsPoisonMessage} is sent to the queue.
+ * It will stop reading records after a given timeout (defaults to {@link #DEFAULT_TIMEOUT}).
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
@@ -52,7 +52,12 @@ public class JmsQueueRecordReader implements RecordReader {
     private QueueSession queueSession;
     private QueueReceiver queueReceiver;
     private Queue queue;
-    private boolean stop;
+    private long timeout;
+
+    /**
+     * Defaul timeout after which the reader will return {@code null}.
+     */
+    public static final long DEFAULT_TIMEOUT = 60000;
 
     /**
      * Create a new {@link JmsQueueRecordReader}.
@@ -61,10 +66,21 @@ public class JmsQueueRecordReader implements RecordReader {
      * @param queue                  to read records from
      */
     public JmsQueueRecordReader(final QueueConnectionFactory queueConnectionFactory, final Queue queue) {
+        this(queueConnectionFactory, queue, DEFAULT_TIMEOUT);
+    }
+
+    /**
+     * Create a new {@link JmsQueueRecordReader}.
+     *
+     * @param queueConnectionFactory to use to create connections
+     * @param queue                  to read records from
+     */
+    public JmsQueueRecordReader(final QueueConnectionFactory queueConnectionFactory, final Queue queue, final long timeout) {
         checkNotNull(queueConnectionFactory, "queue connection factory");
         checkNotNull(queue, "queue");
         this.queueConnectionFactory = queueConnectionFactory;
         this.queue = queue;
+        this.timeout = timeout;
     }
 
     @Override
@@ -75,21 +91,14 @@ public class JmsQueueRecordReader implements RecordReader {
         queueConnection.start();
     }
 
-    private boolean hasNextRecord() {
-        return !stop;
-    }
-
     @Override
     public JmsRecord readRecord() throws Exception {
-        if (hasNextRecord()) {
-            Message message = queueReceiver.receive();
-            String type = message.getJMSType();
-            stop = message instanceof JmsPoisonMessage || (type != null && JmsPoisonMessage.TYPE.equals(type));
-            Header header = new Header(++currentRecordNumber, getDataSourceName(), new Date());
-            return new JmsRecord(header, message);
-        } else {
+        Message message = queueReceiver.receive(timeout); // return null if timed out (See its javadoc)
+        if (message == null) {
             return null;
         }
+        Header header = new Header(++currentRecordNumber, getDataSourceName(), new Date());
+        return new JmsRecord(header, message);
     }
 
     private String getDataSourceName() {
