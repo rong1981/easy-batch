@@ -2,52 +2,60 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.easybatch</groupId>
-    <artifactId>easybatch</artifactId>
-    <version>5.3.0-SNAPSHOT</version>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+    <groupId>org.jeasy</groupId>
+    <artifactId>easy-batch</artifactId>
+    <version>6.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Easy Batch</name>
+    <name>easy-batch</name>
     <description>Easy Batch parent module</description>
     <url>https://github.com/j-easy/easy-batch</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
         <slf4j-api.version>1.7.30</slf4j-api.version>
         <junit.version>4.13</junit.version>
-        <assertj.version>2.9.1</assertj.version>
-        <spring.version>4.3.25.RELEASE</spring.version>
-        <mockito.version>2.28.2</mockito.version>
+        <assertj.version>3.14.0</assertj.version>
+        <spring.version>5.2.3.RELEASE</spring.version>
+        <mockito.version>3.2.4</mockito.version>
         <system-rules.version>1.19.0</system-rules.version>
-        <hsqldb.version>2.3.6</hsqldb.version>
-        <hibernate.version>4.3.11.Final</hibernate.version>
-        <hibernate-validator.version>5.4.3.Final</hibernate-validator.version>
+        <hsqldb.version>2.5.0</hsqldb.version>
+        <hibernate.version>5.4.10.Final</hibernate.version>
+        <javax.el.version>3.0.0</javax.el.version>
+        <javax.el-api.version>3.0.0</javax.el-api.version>
+        <jms.version>1.1</jms.version>
+        <hibernate-validator.version>6.1.1.Final</hibernate-validator.version>
 
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
-        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
         <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-        <maven-bundle-plugin.version>3.5.1</maven-bundle-plugin.version>
+        <maven-bundle-plugin.version>4.2.1</maven-bundle-plugin.version>
         <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
     </properties>
 
     <modules>
-        <module>easybatch-core</module>
-        <module>easybatch-validation</module>
-        <module>easybatch-flatfile</module>
-        <module>easybatch-tools</module>
-        <module>easybatch-jdbc</module>
-        <module>easybatch-jpa</module>
-        <module>easybatch-jms</module>
-        <module>easybatch-xml</module>
-        <module>easybatch-json</module>
-        <module>easybatch-extensions</module>
-        <module>easybatch-archetype</module>
-        <module>easybatch-test-common</module>
+        <module>easy-batch-core</module>
+        <module>easy-batch-validation</module>
+        <module>easy-batch-flatfile</module>
+        <module>easy-batch-jdbc</module>
+        <module>easy-batch-jpa</module>
+        <module>easy-batch-jms</module>
+        <module>easy-batch-xml</module>
+        <module>easy-batch-json</module>
+        <module>easy-batch-extensions</module>
+        <module>easy-batch-archetype</module>
+        <module>easy-batch-test-common</module>
+        <module>easy-batch-tutorials</module>
     </modules>
 
     <developers>
@@ -75,20 +83,9 @@
     </issueManagement>
 
     <ciManagement>
-        <system>Travis CI</system>
-        <url>https://travis-ci.org/j-easy/easy-batch</url>
+        <system>Github Actions</system>
+        <url>https://github.com/j-easy/easy-batch/actions</url>
     </ciManagement>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
     <licenses>
         <license>
@@ -101,80 +98,80 @@
         <dependencies>
 
             <dependency>
-                <groupId>org.easybatch</groupId>
-                <artifactId>easybatch-core</artifactId>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-batch-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.easybatch</groupId>
-                <artifactId>easybatch-flatfile</artifactId>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-batch-flatfile</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.easybatch</groupId>
-                <artifactId>easybatch-xml</artifactId>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-batch-xml</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.easybatch</groupId>
-                <artifactId>easybatch-jdbc</artifactId>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-batch-jdbc</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.easybatch</groupId>
-                <artifactId>easybatch-validation</artifactId>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-batch-validation</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.easybatch</groupId>
-                <artifactId>easybatch-tools</artifactId>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-batch-tools</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.easybatch</groupId>
-                <artifactId>easybatch-spring</artifactId>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-batch-spring</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.easybatch</groupId>
-                <artifactId>easybatch-jms</artifactId>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-batch-jms</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.easybatch</groupId>
-                <artifactId>easybatch-json</artifactId>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-batch-json</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.easybatch</groupId>
-                <artifactId>easybatch-mongodb</artifactId>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-batch-mongodb</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.easybatch</groupId>
-                <artifactId>easybatch-xstream</artifactId>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-batch-xstream</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.easybatch</groupId>
-                <artifactId>easybatch-quartz</artifactId>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-batch-quartz</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.easybatch</groupId>
-                <artifactId>easybatch-test-common</artifactId>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-batch-test-common</artifactId>
                 <version>${project.version}</version>
                 <scope>test</scope>
             </dependency>
@@ -217,11 +214,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${maven-release-plugin.version}</version>
-                    <configuration>
-                        <autoVersionSubmodules>true</autoVersionSubmodules>
-                        <useReleaseProfile>false</useReleaseProfile>
-                        <goals>deploy</goals>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.eluder.coveralls</groupId>
@@ -258,50 +250,21 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>${maven-source-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>attach-sources</id>
-                            <goals>
-                                <goal>jar-no-fork</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven-javadoc-plugin.version}</version>
                     <configuration>
-                        <doclint>none</doclint>
-                        <excludePackageNames>org.easybatch.test.common</excludePackageNames>
+                        <excludePackageNames>
+                            org.jeasy.batch.test.common:
+                            org.jeasy.batch.tutorials.*:
+                            org.jeasy.batch.bench:
+                            org.jeasy.batch.bench.generated
+                        </excludePackageNames>
                     </configuration>
                     <executions>
                         <execution>
                             <phase>install</phase>
                             <goals>
                                 <goal>javadoc</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>attach-javadocs</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>${maven-gpg-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>sign-artifacts</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>sign</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -331,15 +294,9 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>1.6.8</version>
-                    <extensions>true</extensions>
-                    <configuration>
-                        <serverId>ossrh</serverId>
-                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                    </configuration>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
